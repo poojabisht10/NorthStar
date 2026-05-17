@@ -6,10 +6,10 @@
 - Problem Statement: In-House Goal Setting & Tracking Portal
 
 ## 2) Live Demo
-- Demo URL: `<ADD_DEPLOYED_URL_HERE>`
+- Demo URL: [https://northstar-pw2wvlzcd-pooja-bishts-projects-fd1ed8ff.vercel.app/](https://northstar-pw2wvlzcd-pooja-bishts-projects-fd1ed8ff.vercel.app/)
 
 ## 3) Source Code Repository
-- Repo URL: `<ADD_GITHUB_REPO_URL_HERE>`
+- Repo URL: [https://github.com/poojabisht10/NorthStar](https://github.com/poojabisht10/NorthStar)
 - Branch: `main`
 
 ## 4) Role-Based Login / Access
@@ -84,8 +84,35 @@ Note: Demo users can be selected directly from the login screen (no password req
 - Efficient charting and local state flows for low infra overhead
 
 ## 10) Architecture Diagram
-- Diagram file: `ARCHITECTURE.md` (Mermaid)
-- Optional export: screenshot this diagram to PNG/PDF for submission portal
+```mermaid
+flowchart LR
+  U["Users<br/>Employee / Manager / Admin"] --> FE["React + Vite Web App"]
+
+  FE -->|Role-based workflows| S[("In-Memory App State")]
+  FE -->|Analytics charts| RC["Recharts Visualization"]
+  FE -->|CSV Export| X["Downloaded CSV Report"]
+
+  FE -->|POST /api/ai| VF["Vercel Serverless Function<br/>api/ai.js"]
+  VF -->|Groq Chat Completions API| G["Groq API"]
+
+  subgraph Core Modules
+    M1["Goal Creation + Validation"]
+    M2["Approval Workflow"]
+    M3["Quarterly Check-ins"]
+    M4["Shared Goals"]
+    M5["Audit Trail"]
+    M6["Dashboards + Analytics"]
+  end
+
+  FE --> M1
+  FE --> M2
+  FE --> M3
+  FE --> M4
+  FE --> M5
+  FE --> M6
+```
+
+Reference file: `ARCHITECTURE.md`
 
 ## 11) Demo Script (Suggested for Judges)
 1. Login as Employee and create/submit goals with validations.
@@ -94,8 +121,8 @@ Note: Demo users can be selected directly from the login screen (no password req
 4. Export achievement CSV and show end-to-end lifecycle completion.
 
 ## 12) Submission Checklist (Final)
-- [ ] Deployed URL added
-- [ ] GitHub repo URL added
-- [ ] Architecture diagram attached (PNG/PDF from `ARCHITECTURE.md`)
-- [ ] Role login/demo details verified
-- [ ] AI features verified with `GROQ_API_KEY`
+- [x] Deployed URL added
+- [x] GitHub repo URL added
+- [x] Architecture diagram attached in this submission (`Mermaid`)
+- [x] Role login/demo details verified
+- [x] AI features verified with `GROQ_API_KEY`
