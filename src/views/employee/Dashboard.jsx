@@ -1,6 +1,6 @@
 import { StatCard, ProgressRing, Badge } from '../../components/ui.jsx'
 import { calcPct, wtdScore, pctCol } from '../../lib/utils.js'
-import { CURRENT_Q, QS, Q_STATUS_BADGE } from '../../lib/constants.js'
+import { CURRENT_Q } from '../../lib/constants.js'
 
 export default function EmpDashboard({ user, goals, onNav }) {
   const myGoals = goals.filter(g => g.eId === user.id)
@@ -26,25 +26,32 @@ export default function EmpDashboard({ user, goals, onNav }) {
         <StatCard val={myGoals.filter(g => g.status === 'draft').length} lbl="Drafts Pending" sub={myGoals.filter(g => g.status === 'draft').length ? 'Submit for approval' : 'All submitted'} subCol={myGoals.filter(g => g.status === 'draft').length ? 'var(--acc)' : undefined} icon="📝" />
       </div>
 
-      <div className="gr2">
+      <div className="gr-main">
         {/* Progress rings */}
         <div className="card">
           <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--ts)', marginBottom: 14, textTransform: 'uppercase', letterSpacing: '.5px' }}>Progress Rings — {CURRENT_Q}</p>
           {approved.length === 0 && <p style={{ fontSize: 13, color: 'var(--tm)', textAlign: 'center', padding: '20px 0' }}>No approved goals yet</p>}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+          <div className="progress-ring-grid">
             {approved.slice(0, 4).map(g => {
               const p = calcPct(g, CURRENT_Q)
               return (
-                <div key={g.id} style={{ textAlign: 'center', width: 88 }}>
-                  <ProgressRing pct={p || 0} size={76} stroke={6}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: pctCol(p || 0), fontFamily: 'var(--fd)' }}>
+                <div key={g.id} className="ring-tile">
+                  <p className="ring-tile-title">
+                    {g.title.length > 26 ? g.title.slice(0, 26) + '…' : g.title}
+                  </p>
+                  <ProgressRing pct={p || 0} size={140} stroke={10}>
+                    <div style={{ fontSize: 22, fontWeight: 700, color: pctCol(p || 0), fontFamily: 'var(--fd)' }}>
                       {p !== null ? `${Math.round(p)}%` : '—'}
                     </div>
+                    <div style={{ fontSize: 12, color: 'var(--ts)', marginTop: 2 }}>
+                      {g.st[CURRENT_Q]}
+                    </div>
                   </ProgressRing>
-                  <p style={{ fontSize: 10.5, color: 'var(--ts)', marginTop: 6, lineHeight: 1.3 }}>
-                    {g.title.length > 22 ? g.title.slice(0, 22) + '…' : g.title}
-                  </p>
-                  <Badge cls={Q_STATUS_BADGE[g.st[CURRENT_Q]] || 'b-m'}>{g.st[CURRENT_Q]}</Badge>
+                  <div style={{ marginTop: 10, width: '100%' }}>
+                    <div className="pb" style={{ height: 10 }}>
+                      <div className="pf" style={{ width: `${Math.min(p || 0, 100)}%`, background: pctCol(p || 0) }} />
+                    </div>
+                  </div>
                 </div>
               )
             })}
