@@ -3,6 +3,11 @@
 
 > AI-powered goal management for modern organisations
 
+## 🔗 Live Links
+
+- Live Demo: [https://northstar-pw2wvlzcd-pooja-bishts-projects-fd1ed8ff.vercel.app/](https://northstar-pw2wvlzcd-pooja-bishts-projects-fd1ed8ff.vercel.app/)
+- GitHub Repository: [https://github.com/poojabisht10/NorthStar](https://github.com/poojabisht10/NorthStar)
+
 ---
 
 ## 🚀 Quick Start (Local)
@@ -28,8 +33,7 @@ npm run dev
 ## ☁️ Deploy to Vercel (1 minute)
 
 ```bash
-npm install -g vercel
-vercel deploy
+npx vercel
 ```
 
 Then in Vercel dashboard → Project → Settings → Environment Variables, add:
@@ -37,7 +41,13 @@ Then in Vercel dashboard → Project → Settings → Environment Variables, add
 GROQ_API_KEY = gsk_your-key-here
 ```
 
-**Or push to GitHub and import into Vercel — zero config needed.**
+Then deploy production:
+
+```bash
+npx vercel --prod
+```
+
+**Tip:** If you update environment variables, redeploy once again with `npx vercel --prod`.
 
 ---
 
@@ -81,6 +91,8 @@ northstar/
 | Sarah Manager | Manager (Sales) | Reviews Alice & Bob |
 | James Lead | Manager (Engineering) | Reviews Carol & David |
 | HR Admin | Admin | Full org access |
+
+Note: Role-based demo switching is available directly from the login screen.
 
 ---
 
